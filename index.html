@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NovaPlay | Loja PS4</title>
+<style>
+:root{--bg:#070b18;--panel:#10182b;--panel2:#151f38;--text:#f4f7ff;--muted:#9aa8c7;--blue:#397bff;--purple:#8b5cf6;--line:#263452;--green:#42d392}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% 0%,#172654 0%,var(--bg) 48%);color:var(--text);font:16px/1.45 Arial,Helvetica,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:11px 15px;color:white;background:linear-gradient(110deg,var(--blue),var(--purple));font-weight:700}button.secondary{background:#202d49;border:1px solid #35476b}button.danger{background:#672b40}
+header{padding:24px clamp(16px,4vw,52px);display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #24304a;background:#070b18cc}
+.brand{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:900;letter-spacing:.5px}.logo{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--purple));font-size:22px}
+.status{font-size:12px;color:#b9c6e2;border:1px solid #334465;border-radius:30px;padding:7px 11px}
+main{max-width:1200px;margin:auto;padding:28px clamp(14px,3vw,34px) 60px}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:32px;border:1px solid #28385c;border-radius:24px;background:linear-gradient(110deg,#14234aee,#15132eee);margin-bottom:24px}
+.hero h1{font-size:clamp(28px,4vw,44px);line-height:1.06;margin:0 0 12px}.hero p{color:#c0cbe2;max-width:600px;margin:0 0 20px}.orb{font-size:74px;filter:drop-shadow(0 0 25px #536eff88)}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.toolbar input,.toolbar select,.formrow input,.formrow select{background:#0c1427;color:var(--text);border:1px solid #334362;border-radius:10px;padding:11px 12px;min-width:150px}.toolbar input{flex:1;min-width:200px}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 14px}.sectionhead h2{margin:0;font-size:22px}.muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:17px;overflow:hidden;background:linear-gradient(180deg,#141e34,#0c1325);min-width:0}
+.cover{height:135px;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;background:radial-gradient(circle at 70% 20%,#5b70df,#192c56 55%,#11182b);font-size:24px;font-weight:900;letter-spacing:1px;overflow:hidden}
+.cover span{max-width:100%;text-shadow:0 2px 10px #0008}.cardbody{padding:15px}.card h3{font-size:17px;margin:0 0 5px}.meta{display:flex;justify-content:space-between;gap:8px;margin:9px 0 13px;color:var(--muted);font-size:12px}.pill{border-radius:30px;background:#1d3150;padding:4px 8px;color:#c8d8ff}.installed{color:var(--green)}.cardactions{display:flex;gap:8px;flex-wrap:wrap}.cardactions button{font-size:12px;padding:9px 10px;flex:1}.empty{border:1px dashed #344565;border-radius:14px;padding:26px;text-align:center;color:var(--muted)}
+details{margin-top:28px;border:1px solid var(--line);border-radius:16px;background:#0d1528;padding:16px}summary{cursor:pointer;font-weight:800}form{margin-top:14px}.formrow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.formrow input,.formrow select{width:100%;min-width:0}.formbuttons{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.notice{margin-top:22px;background:#201d31;border:1px solid #55466f;color:#d8d1f4;padding:15px;border-radius:12px;font-size:13px}.notice strong{color:#fff}
+footer{text-align:center;color:#7785a5;font-size:12px;padding:24px}
+@media(max-width:650px){header{align-items:flex-start;flex-direction:column}.hero{padding:22px}.orb{display:none}.formrow{grid-template-columns:1fr}.grid{grid-template-columns:repeat(auto-fill,minmax(165px,1fr))}.cover{height:110px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">N</div><div>NOVAPLAY <div class="muted">BIBLIOTECA PS4</div></div></div><div class="status">CATÁLOGO PERSONALIZÁVEL</div></header>
+<main>
+<section class="hero"><div><h1>Seus jogos.<br>Do seu jeito.</h1><p>Organize sua biblioteca de PS4, marque os jogos instalados e guarde links de downloads autorizados em uma interface feita para navegar com controle.</p><button onclick="document.querySelector('#catalogo').scrollIntoView({behavior:'smooth'})">Ver biblioteca ↓</button></div><div class="orb">🎮</div></section>
+<div class="toolbar">
+<input id="search" type="search" placeholder="Pesquisar jogo..." aria-label="Pesquisar jogo">
+<select id="filter" aria-label="Filtrar categoria"><option value="todos">Todas as categorias</option><option>Ação</option><option>Aventura</option><option>Esporte</option><option>Corrida</option><option>Indie</option><option>Outro</option></select>
+<select id="statusFilter" aria-label="Filtrar instalação"><option value="todos">Todos os estados</option><option value="installed">Instalados</option><option value="notinstalled">Não instalados</option></select>
+<button class="secondary" id="reset">Restaurar demonstração</button>
+</div>
+<section id="catalogo">
+<div class="sectionhead"><h2>Minha biblioteca</h2><span class="muted" id="count">0 jogos</span></div>
+<div class="grid" id="games"></div>
+</section>
+<details id="addPanel"><summary>＋ Adicionar jogo ao catálogo</summary>
+<form id="addForm">
+<div class="formrow">
+<input id="title" required maxlength="70" placeholder="Nome do jogo">
+<select id="category"><option>Ação</option><option>Aventura</option><option>Esporte</option><option>Corrida</option><option>Indie</option><option>Outro</option></select>
+<select id="installed"><option value="false">Ainda não instalado</option><option value="true">Já instalado</option></select>
+<input id="year" type="number" min="1994" max="2100" placeholder="Ano (opcional)">
+<input id="cover" placeholder="Cor da capa (ex.: #283e75)">
+<input id="download" type="url" placeholder="Link de download autorizado (opcional)">
+</div>
+<div class="formbuttons"><button type="submit">Adicionar à biblioteca</button><button type="button" class="secondary" id="export">Exportar catálogo JSON</button><label class="secondary" style="border-radius:10px;padding:11px 15px;cursor:pointer"><input type="file" id="import" accept=".json,application/json" hidden>Importar catálogo JSON</label></div>
+</form></details>
+<div class="notice"><strong>Importante:</strong> o navegador do PS4 não consegue ler automaticamente a lista de jogos instalados nem iniciar jogos diretamente por uma página web. Marque o estado manualmente. Use somente links de downloads que você tem autorização para distribuir; esta página não hospeda jogos nem arquivos PKG.</div>
+</main>
+<footer>NovaPlay • catálogo local no navegador • projeto demonstrativo não afiliado à Sony</footer>
+<script>
+const demo=[
+ {id:1,title:"Astro's Playroom",category:"Aventura",installed:true,year:2020,color:"#315b9c",download:""},
+ {id:2,title:"Gran Turismo",category:"Corrida",installed:false,year:"",color:"#7b293e",download:""},
+ {id:3,title:"Jogo de futebol",category:"Esporte",installed:true,year:"",color:"#245d4b",download:""},
+ {id:4,title:"Aventura espacial",category:"Aventura",installed:false,year:"",color:"#4a367d",download:""},
+ {id:5,title:"Ação urbana",category:"Ação",installed:false,year:"",color:"#8a4a2a",download:""},
+ {id:6,title:"Indie favorito",category:"Indie",installed:true,year:"",color:"#236d83",download:""}
+];
+let games=[];
+try{games=JSON.parse(localStorage.getItem("novaplay_games")||"null")||demo.slice()}catch(e){games=demo.slice()}
+const $=id=>document.getElementById(id);
+function save(){try{localStorage.setItem("novaplay_games",JSON.stringify(games))}catch(e){}}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function render(){
+ const q=$("search").value.trim().toLowerCase(),cat=$("filter").value,st=$("statusFilter").value;
+ const list=games.filter(g=>(g.title||"").toLowerCase().includes(q)&&(cat==="todos"||g.category===cat)&&(st==="todos"||(st==="installed"?g.installed:!g.installed)));
+ $("count").textContent=list.length+" jogo(s)";
+ $("games").innerHTML=list.length?list.map(g=>`<article class="card"><div class="cover" style="background:radial-gradient(circle at 70% 20%,${esc(g.color||"#5368c8")},#10182b 85%)"><span>${esc(g.title)}</span></div><div class="cardbody"><h3>${esc(g.title)}</h3><div class="meta"><span class="pill">${esc(g.category||"Outro")}</span><span class="${g.installed?"installed":""}">${g.installed?"✓ Instalado":"Não instalado"}</span></div><div class="meta"><span>${g.year?esc(g.year):"PS4"}</span><span>${g.download?"Link disponível":"Sem link"}</span></div><div class="cardactions"><button class="secondary" data-toggle="${g.id}">${g.installed?"Desmarcar":"Marcar instalado"}</button>${g.download?`<button data-open="${g.id}">Abrir link</button>`:""}<button class="danger" data-delete="${g.id}">Excluir</button></div></div></article>`).join(""):'<div class="empty">Nenhum jogo encontrado. Adicione um jogo no formulário abaixo.</div>';
+}
+$("games").addEventListener("click",e=>{
+ const t=e.target.closest("[data-toggle]"),d=e.target.closest("[data-delete]"),o=e.target.closest("[data-open]");
+ if(t){const g=games.find(x=>x.id==t.dataset.toggle);if(g)g.installed=!g.installed;save();render()}
+ if(d&&confirm("Excluir este item do catálogo?")){games=games.filter(x=>x.id!=d.dataset.delete);save();render()}
+ if(o){const g=games.find(x=>x.id==o.dataset.open);if(g&&g.download)window.open(g.download,"_blank","noopener")}
+});
+["search","filter","statusFilter"].forEach(id=>$(id).addEventListener("input",render));
+$("addForm").addEventListener("submit",e=>{e.preventDefault();const title=$("title").value.trim();if(!title)return;const url=$("download").value.trim();if(url&&!/^https?:\/\//i.test(url)){alert("Informe um link http ou https válido.");return}
+games.unshift({id:Date.now(),title,category:$("category").value,installed:$("installed").value==="true",year:$("year").value,color:/^#[0-9a-f]{6}$/i.test($("cover").value)?$("cover").value:"#354d8c",download:url});save();render();e.target.reset();$("addPanel").open=true});
+$("reset").addEventListener("click",()=>{if(confirm("Restaurar o catálogo de demonstração? Isso substitui sua lista atual neste navegador.")){games=demo.slice();save();render()}});
+$("export").addEventListener("click",()=>{const blob=new Blob([JSON.stringify(games,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="novaplay-catalogo.json";a.click();URL.revokeObjectURL(a.href)});
+$("import").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());if(!Array.isArray(data)||!data.every(g=>g&&typeof g.title==="string"))throw Error();games=data;save();render();alert("Catálogo importado.")}catch(err){alert("Arquivo JSON inválido.")}e.target.value=""});
+render();
+</script>
+</body>
+</html>
